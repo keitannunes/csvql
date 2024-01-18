@@ -2,9 +2,11 @@
 #include "Scanner.h"
 
 int main() {
-    Scanner s = Scanner("+<>\n>\n>>=-\n>--hell\n.");
+    Scanner s = Scanner("23.2.+23");
+    using namespace std;
     for (auto& e : s.scanTokens()) {
-        std::cout << e << std::endl;
+        cout << e;
+        //cout << get<int>(e._literal.value());
     }
 
 }

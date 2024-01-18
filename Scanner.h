@@ -11,7 +11,7 @@
 
 class Scanner {
 public:
-    Scanner(std::string source);
+    explicit Scanner(std::string source);
     std::vector<Token> scanTokens();
 
 private:
@@ -23,9 +23,14 @@ private:
 
     bool isAtEnd();
     void scanToken();
-    void addToken(TokenType type, std::any literal);
+    void addToken(TokenType type, std::optional<std::variant<std::string, int, double>> literal);
     char advance();
     char peek();
+    char peekNext();
+    static bool isDigit(char c);
+    // static bool isDigitNotZero(char c);
+    void string();
+    void number();
 };
 
 

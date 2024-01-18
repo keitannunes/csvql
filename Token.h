@@ -5,7 +5,7 @@
 #ifndef CSVQL_TOKEN_H
 #define CSVQL_TOKEN_H
 #include <string>
-#include <any>
+#include <variant>
 #include <iostream>
 
 
@@ -91,7 +91,8 @@ enum TokenType {
 //    SQL_WHERE,
 
     //Literals
-    NUMBER,
+    INT,
+    DOUBLE,
     STRING,
     IDENTIFIER,
 
@@ -117,14 +118,13 @@ enum TokenType {
     RIGHT_PAREN,
     SEMICOLON
 };
-
 class Token {
 public:
     TokenType _type;
     std::string _token; //token
-    std::any _literal; //literal if type is a literal
+    std::optional<std::variant<std::string, int, double>> _literal; //literal if type is a literal
     int _line; //line where token is located
-    Token(TokenType type, std::string token, std::any literal, int line);
+    Token(TokenType type, std::string token, std::optional<std::variant<std::string, int, double>> literal, int line);
     friend std::ostream& operator<<(std::ostream& os, const Token &tk);
 };
 
