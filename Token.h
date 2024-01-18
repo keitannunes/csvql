@@ -6,6 +6,8 @@
 #define CSVQL_TOKEN_H
 #include <string>
 #include <any>
+#include <iostream>
+
 
 enum TokenType {
 //    SQL_ADD,
@@ -123,6 +125,7 @@ public:
     std::any _literal; //literal if type is a literal
     int _line; //line where token is located
     Token(TokenType type, std::string token, std::any literal, int line);
+    friend std::ostream& operator<<(std::ostream& os, const Token &tk);
 };
 
 

@@ -14,7 +14,7 @@ bool Scanner::isAtEnd() {
     return current >= _source.length();
 }
 void Scanner::addToken(TokenType type, std::any literal = std::any()) {
-    tokens.emplace_back(type,_source.substr(start,current),std::move(literal), line);
+    tokens.emplace_back(type,_source.substr(start,current-start),std::move(literal), line);
 }
 
 char Scanner::advance() {
@@ -23,7 +23,7 @@ char Scanner::advance() {
 
 char Scanner::peek() {
     if (isAtEnd()) return '\0';
-    return _source[current]
+    return _source[current];
 }
 
 void Scanner::scanToken() {
@@ -57,12 +57,12 @@ void Scanner::scanToken() {
         case '<':
             switch (peek()) {
                 case '>':
-                    addToken(OPERATOR_NOT_EQUAL);
                     current++;
+                    addToken(OPERATOR_NOT_EQUAL);
                     break;
                 case '=':
-                    addToken(OPERATOR_LESS_EQUAL);
                     current++;
+                    addToken(OPERATOR_LESS_EQUAL);
                     break;
                 default:
                     addToken(OPERATOR_LESS);
@@ -70,8 +70,8 @@ void Scanner::scanToken() {
             break;
         case '>':
             if (peek() == '=') {
-                addToken(OPERATOR_GREATER_EQUAL);
                 current++;
+                addToken(OPERATOR_GREATER_EQUAL);
             }
             else addToken(OPERATOR_GREATER);
             break;
@@ -85,6 +85,7 @@ std::vector<Token> Scanner::scanTokens() {
         start = current;
         scanToken();
     }
+    return tokens;
 }
 
 

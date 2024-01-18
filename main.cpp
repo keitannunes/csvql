@@ -1,6 +1,10 @@
 #include <iostream>
+#include "Scanner.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    Scanner s = Scanner("+<>\n>\n>>=-\n>--hell\n.");
+    for (auto& e : s.scanTokens()) {
+        std::cout << e << std::endl;
+    }
+
 }
